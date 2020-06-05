@@ -2,8 +2,10 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/windmilleng/tilt/pkg/tiltextension"
 )
@@ -42,7 +44,7 @@ func main() {
 	}
 
 	for _, e := range errors {
-		fmt.Printf("Error validating extension named %s: %v", e.extensionName, e.err)
+		fmt.Printf("Error validating extension named %s: %v\n", e.extensionName, e.err)
 	}
 
 	if len(errors) > 0 {
@@ -53,5 +55,18 @@ func main() {
 }
 
 func getNamesOfAllExtensions(extensionsDir string) ([]string, error) {
-	return nil, nil
+	files, err := ioutil.ReadDir(extensionsDir)
+	if err != nil {
+		return nil, err
+	}
+
+	var fileNames []string
+	for _, file := range files {
+		if strings.HasPrefix(file.Name(), ".") {
+			continue
+		}
+		fileNames = append(fileNames, file.Name())
+	}
+
+	return fileNames, nil
 }
