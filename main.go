@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/windmilleng/tilt/pkg/tiltextension"
+	"github.com/tilt-dev/tilt/pkg/tiltextension"
 )
 
 const tiltfileName = "Tiltfile"
